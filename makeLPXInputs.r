@@ -42,3 +42,18 @@ for (i in 1:repeatN) wind=addLayer(wind,rept)
 writeRaster(wind,fileOut,overwrite=TRUE)
 
 
+##########################################################################################
+## Test                                                                                 ##
+##########################################################################################
+mask=wind[[1]]; mask[]=1
+for (i in 1:nlayers(wind)) mask=mask+is.na(wind[[i]])
+mask[mask!=1]=NaN  
+    
+globalWind <- function(r) {
+    r=r*mask
+    sum.raster(r,na.rm=TRUE)
+}
+
+gwinds=unlist(layer.apply(wind,globalWind))
+
+plot(gwinds,type='l')
