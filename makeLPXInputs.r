@@ -1,6 +1,7 @@
+###############################
+## setup                     ##
+###############################
 source("cfg.r")
-
-##Make wind
 
 fileIn  <- c('data/wspd.sig995.mon.mean.nc',
              'data/uvas_19512000detr_new.nc')
@@ -10,6 +11,10 @@ repeatN <- 3
 layerNo <- 0
 
 oldChop <- 2
+
+###############################
+## requred functions         ##
+###############################
 
 regridWind <- function(r) {
     r=disaggregate.crop(r,extent=extentDefault,fact=5)
@@ -34,6 +39,15 @@ old = layer.apply(old,crop,y=extentDefault)
 
 samp = old[[1]]
 regrid=layer.apply(In,FUN.memSafe,regridWind)
+
+###############################
+## String together:          ##
+##      -1850-1900 detrended ##
+##      -1900-1948 detredned ##
+##          (minus some yrs) ##
+##      -1948-2010 transient ##
+##      -2010-2013 2010 trans##
+###############################
 rept  = regrid[[(layerNo-11):layerNo]]
 
 wind=addLayer(old,old[[1:(nlayers(old)-12*oldChop)]],regrid)
@@ -42,9 +56,9 @@ for (i in 1:repeatN) wind=addLayer(wind,rept)
 writeRaster(wind,fileOut,overwrite=TRUE)
 
 
-##########################################################################################
-## Test                                                                                 ##
-##########################################################################################
+###############################
+## Test                      ##
+###############################
 mask=wind[[1]]; mask[]=1
 for (i in 1:nlayers(wind)) mask=mask+is.na(wind[[i]])
 mask[mask!=1]=NaN  
