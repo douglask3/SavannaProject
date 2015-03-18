@@ -21,24 +21,10 @@ regridWind <- function(r) {
     r=resample(r,samp)
 }
 
-FUN.memSafe <- function(r,FUN,...) {
-    layerNo <<- layerNo + 1
-    print( layerNo )
-    tempFileName=paste("temp/r",layerNo,sep="")
-    r=FUN(r,...)
-    return(writeRaster(r,filename=tempFileName,overwrite=TRUE))
-}
-
 ###############################
 ## regrid new data           ##
 ###############################
-In  = brick(fileIn[1])
-old = brick(fileIn[2])
-
-old = layer.apply(old,crop,y=extentDefault)
-
-samp = old[[1]]
-regrid=layer.apply(In,FUN.memSafe,regridWind)
+c(old,regrid):=regridData(fileIn[1],fileIn[2],regridWind)
 
 ###############################
 ## String together:          ##
