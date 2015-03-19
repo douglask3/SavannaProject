@@ -1,20 +1,39 @@
 ###############################
 ## Paths and Info            ##
 ###############################
-
 source("cfg.r")
 
-fileTS3.1  <- c('cru_ts3.22.1901.2013.cld.dat.nc')
-pathTS3.1  <- 'data/'
+fileTS3.1  <- c('cru_ts3.22.1901.2013.cld.dat.nc',
+                'cru_ts3.22.1901.2013.pre.dat.nc',
+                'cru_ts3.22.1901.2013.tmn.dat.nc',
+                'cru_ts3.22.1901.2013.tmx.dat.nc',
+                'cru_ts3.22.1901.2013.wet.dat.nc')
+pathTS3.1  <-   'data/'
                 
-fileDetr   <- c('clt_19512000detr.nc')
+fileDetr   <- c('clt_19512000detr.nc',
+                'pr_19512000detr.nc',
+                'tasmin_19512000detr.nc',
+                'tasmax_19512000detr.nc',
+                'wetdays_19512000detr.nc')
 pathDetr   <- '~/Documents/climInputs/detrended/'
 
-fileOut    <- 'cru_ts2.19502000detr.ts3.22.1901.2013.cld.dat.nc'
+fileOut    <- c('cru_ts2.19502000detr.ts3.22.1901.2013.cld.dat.nc',
+                'cru_ts2.19502000detr.ts3.22.1901.2013.pre.dat.nc',
+                'cru_ts2.19502000detr.ts3.22.1901.2013.tmn.dat.nc',
+                'cru_ts2.19502000detr.ts3.22.1901.2013.tmx.dat.nc',
+                'cru_ts2.19502000detr.ts3.22.1901.2013.wet.dat.nc')
 
-varnames   <- 'clt'
-
-units      <- '%'
+varnames   <- c('clt',
+                'pr',
+                'tasmin',
+                'tasmax',
+                'wetdays')
+            
+units      <- c('%',
+                'm/s',
+                'K',
+                'K',
+                'no. days')
 
 fname      <- "makeLPXclimInputs.r"
 
