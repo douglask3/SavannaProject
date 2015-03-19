@@ -16,6 +16,8 @@ varnames   <- 'clt'
 
 units      <- '%'
 
+fname      <- "makeLPXclimInputs.r"
+
 ###############################
 ## setup                     ##
 ###############################
@@ -37,8 +39,7 @@ regridclim <- function(r,samp) {
 regridAndOut <- function(fileTS3.1,fileDetr,fileOut,varname,unit) {
     c(old,regrid):=regridData(fileTS3.1,fileDetr,regridclim)
     clim=addLayer(old,regrid)
-    writeRaster(clim,fileOut,overwrite=TRUE,
-                varname=varname,xname='lon',yname='lat',zname='time',unit=unit)
+    writeRasterStandard(clim,fileOut,varname,unit,fname)
     return(clim)
 }
 
