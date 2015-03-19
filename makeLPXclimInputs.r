@@ -34,6 +34,12 @@ units      <- c('%',
                 'K',
                 'K',
                 'no. days')
+                
+scalings   <- list(list('*',1),
+                   list('/',365*24*60*60/12),
+                   list('+',273.15),
+                   list('+',273.15),
+                   list('*',1))
 
 fname      <- "makeLPXclimInputs.r"
 
@@ -50,13 +56,14 @@ fileOut     <- joinPath('outputs/',fileOut  )
 ###############################
 ## requred functions         ##
 ###############################
-regridclim <- function(r,samp) {
-    r=crop(r,y=extentDefault)
-    r=resample(r,samp)
+regridclim <- function(r,samp,scaling) {
+    r = crop(r,y=extentDefault)
+    r = resample(r,samp)
+    return(match.fun(scaling[[1]])(r,scaling[[2]]))
 }
 
-regridAndOut <- function(fileTS3.1,fileDetr,fileOut,varname,unit) {
-    c(old,regrid):=regridData(fileTS3.1,fileDetr,regridclim)
+regridAndOut <- function(fileTS3.1,fileDetr,fileOut,varname,unit,scaling) {
+    c(old,regrid):=regridData(fileTS3.1,fileDetr,regridclim,scaling)
     clim=addLayer(old,regrid)
     writeRasterStandard(clim,fileOut,varname,unit,fname)
     return(clim)
@@ -65,6 +72,7 @@ regridAndOut <- function(fileTS3.1,fileDetr,fileOut,varname,unit) {
 ###############################
 ## regrid & Test              ##
 ###############################
-dats=mapply(regridAndOut,fileTS3.1, fileDetr, fileOut, varnames, units)
+dats=mapply(regridAndOut,fileTS3.1, fileDetr, fileOut, varnames, units, scalings)
 
+graphics.off()
 mapply(testTSplot,dats,fileOut)
