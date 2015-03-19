@@ -12,6 +12,10 @@ pathDetr   <- '~/Documents/climInputs/detrended/'
 
 fileOut    <- 'cru_ts2.19502000detr.ts3.22.1901.2013.cld.dat.nc'
 
+varnames   <- 'clt'
+
+units      <- '%'
+
 ###############################
 ## setup                     ##
 ###############################
@@ -30,16 +34,17 @@ regridclim <- function(r,samp) {
     r=resample(r,samp)
 }
 
-regridAndOut <- function(fileTS3.1,fileDetr,fileOut) {
+regridAndOut <- function(fileTS3.1,fileDetr,fileOut,varname,unit) {
     c(old,regrid):=regridData(fileTS3.1,fileDetr,regridclim)
     clim=addLayer(old,regrid)
-    writeRaster(clim,fileOut,overwrite=TRUE)
+    writeRaster(clim,fileOut,overwrite=TRUE,
+                varname=varname,xname='lon',yname='lat',zname='time',unit=unit)
     return(clim)
 }
 
 ###############################
 ## regrid & Test              ##
 ###############################
-dats=mapply(regridAndOut,fileTS3.1, fileDetr  ,fileOut )
+dats=mapply(regridAndOut,fileTS3.1, fileDetr, fileOut, varnames, units)
 
 mapply(testTSplot,dats,fileOut)
