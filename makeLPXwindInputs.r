@@ -11,7 +11,7 @@ fileOut <- c(trans='uvas_wspd.sig995.mon.mean.1900-2013.nc',
              
 varname <- 'uvas'
 unit    <- 'm/s'
-fname   <- 'makeLPXwinds.r'
+fname   <- 'makeLPXwindInputs.r'
 
 repeatN <- 3
 
