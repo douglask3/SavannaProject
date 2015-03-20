@@ -12,5 +12,4 @@ detrendedLength = c(full=600,
                     test=12)
                     
                     
-if (testRun) detrendedLength=detrendedLength['test']
-    else detrendedLength=detrendedLength['full']
+if (testRun) detrendedLength=detrendedLength['test'] else detrendedLength=detrendedLength['full']

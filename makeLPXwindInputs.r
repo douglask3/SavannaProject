@@ -8,6 +8,11 @@ fileIn  <- c('data/wspd.sig995.mon.mean.nc',
 
 fileOut <- c(trans='uvas_wspd.sig995.mon.mean.1900-2013.nc',
              detr ='uvas_19512000detr_new.nc')
+             
+varname <- 'uvas'
+unit    <- 'm/s'
+fname   <- 'makeLPXwinds.r'
+
 repeatN <- 3
 
 oldChop <- 0
@@ -43,6 +48,6 @@ rept  = regrid[[(layerNo-11):layerNo]]
 wind=addLayer(old,old[[1:(nlayers(old)-12*oldChop)]],regrid)
 for (i in 1:repeatN) wind=addLayer(wind,rept)
 
-writeRasterStandardTransDetr(wind,fileOut[1],fileOut[2])
+writeRasterStandardTransDetr(wind,fileOut[1],fileOut[2],varname,unit,fname)
 
 testTSplot(wind,fileOut['trans'])
