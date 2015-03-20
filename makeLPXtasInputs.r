@@ -25,7 +25,7 @@ Outs=stack()
 
 meanLayer <- function(r1,r2) (r1+r2)/2
 
-for (i in 1:nlayers(Outs))
+for (i in 1:nlayers(Ins[[1]]))
     Outs=addLayer(Outs,FUN.memSafe(Ins[[1]][[i]],meanLayer,Ins[[2]][[i]]))
 
 writeRasterStandard(Outs,fileOut,varname,unit,fname)
