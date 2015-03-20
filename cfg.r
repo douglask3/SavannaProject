@@ -4,4 +4,5 @@ sourceAllLibs()
 library("raster")
 library("ncdf")
 
-extentDefault = extent(c(113,154,-40,-10))
+extentDefault   = extent(c(113,154,-40,-10))
+detrendedLength = 600

@@ -6,17 +6,20 @@ source("cfg.r")
 fileIn  <- c('data/wspd.sig995.mon.mean.nc',
              'data/uvas_19512000detr_new.nc')
 
-fileOut <- 'outputs/uvas_wspd.sig995.mon.mean.1900-2013.nc'
+fileOut <- c(trans='uvas_wspd.sig995.mon.mean.1900-2013.nc',
+             detr ='uvas_19512000detr_new.nc')
 repeatN <- 3
-layerNo <- 0
 
-oldChop <- 2
+oldChop <- 3
 
 ###############################
-## requred functions         ##
+## setup                     ##
 ###############################
 
-regridWind <- function(r,samp,...) {
+layerNo     <- 0
+fileOut     <- joinPaths('outputs/',fileOut)
+
+regridWind  <- function(r,samp,...) {
     r=disaggregate.crop(r,extent=extentDefault,fact=5)
     r=resample(r,samp)
 }
@@ -40,7 +43,7 @@ rept  = regrid[[(layerNo-11):layerNo]]
 wind=addLayer(old,old[[1:(nlayers(old)-12*oldChop)]],regrid)
 for (i in 1:repeatN) wind=addLayer(wind,rept)
 
-writeRaster(wind,fileOut,overwrite=TRUE)
+writeRasterStandardTransDetr(wind,fileOut[1],fileOut[2])
 
 
 ###############################

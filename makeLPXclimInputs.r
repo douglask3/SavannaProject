@@ -17,11 +17,18 @@ fileDetr   <- c('clt_19512000detr.nc',
                 'wetdays_19512000detr.nc')
 pathDetr   <- '~/Documents/climInputs/detrended/'
 
-fileOut    <- c('cru_ts2.19502000detr.ts3.22.1901.2013.cld.dat.nc',
-                'cru_ts2.19502000detr.ts3.22.1901.2013.pre.dat.nc',
-                'cru_ts2.19502000detr.ts3.22.1901.2013.tmn.dat.nc',
-                'cru_ts2.19502000detr.ts3.22.1901.2013.tmx.dat.nc',
-                'cru_ts2.19502000detr.ts3.22.1901.2013.wet.dat.nc')
+fileOut    <- list(trans=c('cru_ts2.19502000detr.ts3.22.1901.2013.cld.dat.nc',
+                           'cru_ts2.19502000detr.ts3.22.1901.2013.pre.dat.nc',
+                           'cru_ts2.19502000detr.ts3.22.1901.2013.tmn.dat.nc',
+                           'cru_ts2.19502000detr.ts3.22.1901.2013.tmx.dat.nc',
+                           'cru_ts2.19502000detr.ts3.22.1901.2013.wet.dat.nc'),
+                   detr =c('cru_ts2.19502000detr.cld.dat.nc',
+                           'cru_ts2.19502000detr.pre.dat.nc',
+                           'cru_ts2.19502000detr.tmn.dat.nc',
+                           'cru_ts2.19502000detr.tmx.dat.nc',
+                           'cru_ts2.19502000detr.wet.dat.nc'))
+                           
+                        
 
 varnames   <- c('clt',
                 'pr',
@@ -48,9 +55,9 @@ fname      <- "makeLPXclimInputs.r"
 ###############################
 layerNo     <- 0
 
-fileTS3.1   <- joinPath(pathTS3.1 ,fileTS3.1)
-fileDetr    <- joinPath(pathDetr  ,fileDetr )
-fileOut     <- joinPath('outputs/',fileOut  )
+fileTS3.1   <- joinPaths(pathTS3.1 ,fileTS3.1)
+fileDetr    <- joinPaths(pathDetr  ,fileDetr )
+fileOut     <- joinPaths('outputs/',fileOut  )
 
 ###############################
 ## requred functions         ##
@@ -61,17 +68,19 @@ regridclim <- function(r,samp,scaling) {
     return(match.fun(scaling[[1]])(r,scaling[[2]]))
 }
 
-regridAndOut <- function(fileTS3.1,fileDetr,fileOut,varname,unit,scaling) {
+regridAndOut <- function(fileTS3.1,fileDetr,fileOutTrans,fileOutDetr,
+                         varname,unit,scaling) {
     c(old,regrid):=regridData(fileTS3.1,fileDetr,regridclim,scaling)
     clim=addLayer(old,regrid)
-    writeRasterStandard(clim,fileOut,varname,unit,fname)
+    writeRasterStandardTransDetr(clim,fileOutTrans,fileOutDetr,varname,unit,fname)
     return(clim)
 }
 
 ###############################
 ## regrid & Test              ##
 ###############################
-dats=mapply(regridAndOut,fileTS3.1, fileDetr, fileOut, varnames, units, scalings)
+dats=mapply(regridAndOut,fileTS3.1, fileDetr, fileOut$trans, fileOut$detr,
+            varnames, units, scalings)
 
 graphics.off()
-mapply(testTSplot,dats,fileOut)
+mapply(testTSplot,dats,fileOut$trans)
