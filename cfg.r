@@ -12,4 +12,8 @@ detrendedLength = c(full=600,
                     test=12)
                     
                     
+
+nyrs        <- 163
+                    
+                    
 if (testRun) detrendedLength=detrendedLength['test'] else detrendedLength=detrendedLength['full']
