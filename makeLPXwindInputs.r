@@ -16,7 +16,7 @@ oldChop <- 2
 ## requred functions         ##
 ###############################
 
-regridWind <- function(r) {
+regridWind <- function(r,samp,...) {
     r=disaggregate.crop(r,extent=extentDefault,fact=5)
     r=resample(r,samp)
 }
@@ -34,6 +34,7 @@ c(old,regrid):=regridData(fileIn[1],fileIn[2],regridWind)
 ##      -1948-2010 transient ##
 ##      -2010-2013 2010 trans##
 ###############################
+layerNo=nlayers(regrid)
 rept  = regrid[[(layerNo-11):layerNo]]
 
 wind=addLayer(old,old[[1:(nlayers(old)-12*oldChop)]],regrid)
