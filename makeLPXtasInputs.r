@@ -20,7 +20,7 @@ fileIn     <- joinPath('outputs/',fileIn)
 fileOut    <- joinPath('outputs/',fileOut)
 
 ###############################
-## requred functions         ##
+## regrid and output         ##
 ###############################
 Ins  = lapply(fileIn,brick)
 Outs=stack()
