@@ -48,7 +48,6 @@ fname      <- "makeLPXclimInputs.r"
 ###############################
 layerNo     <- 0
 
-joinPath    <- function(a,b) paste(a,b,sep="/")
 fileTS3.1   <- joinPath(pathTS3.1 ,fileTS3.1)
 fileDetr    <- joinPath(pathDetr  ,fileDetr )
 fileOut     <- joinPath('outputs/',fileOut  )
