@@ -10,7 +10,7 @@ fileOut <- c(trans='uvas_wspd.sig995.mon.mean.1900-2013.nc',
              detr ='uvas_19512000detr_new.nc')
 repeatN <- 3
 
-oldChop <- 3
+oldChop <- 0
 
 ###############################
 ## setup                     ##
@@ -45,19 +45,4 @@ for (i in 1:repeatN) wind=addLayer(wind,rept)
 
 writeRasterStandardTransDetr(wind,fileOut[1],fileOut[2])
 
-
-###############################
-## Test                      ##
-###############################
-mask=wind[[1]]; mask[]=1
-for (i in 1:nlayers(wind)) mask=mask+is.na(wind[[i]])
-mask[mask!=1]=NaN  
-    
-globalWind <- function(r) {
-    r=r*mask
-    sum.raster(r,na.rm=TRUE)
-}
-
-gwinds=unlist(layer.apply(wind,globalWind))
-
-plot(gwinds,type='l')
+testTSplot(wind,fileOut['trans'])
