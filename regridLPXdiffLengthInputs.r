@@ -7,6 +7,7 @@ fileIn      <- c('pas_fill2.nc',
                  'cropland_18512006.nc',
                  'popdens_fill2.nc',
                  'a_nd_fill.nc')
+                 
 pathIn      <- '~/Documents/climInputs/climData/historic/'
                 
 fileOut     <- list(trans=fileIn,
@@ -46,7 +47,7 @@ regidAndOutDL <- function(fileIn,fileOutTrans,fileOutDetr,varname,unit) {
     
     d=stack()
     for (i in 1:50) d=addLayer(d,r[[1]])
-    writeRasterStandard(r,fileOutDetr,varname,unit,fname)
+    writeRasterStandard(d,fileOutDetr,varname,unit,fname)
 }
 
 mapply(regidAndOutDL,fileIn,fileOut$trans,fileOut$detr,varname,unit)
