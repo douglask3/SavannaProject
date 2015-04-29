@@ -15,9 +15,14 @@ fileOut     <- c('Ausmask_0k.nc',
 varname     <- c('mask',
                 'soiltype',
                 'lightn')
+                
 unit        <- c("-",
                  '-',
                  'flash/m2')
+                 
+dataType    <- c('LOG1S',
+                 'INT1S',
+                 'FLT8S')
 
 fname       <- "regridLPXstndrdLengthInputs.r"
 ###############################
@@ -30,10 +35,10 @@ fileOut    <- joinPath('outputs/',fileOut)
 ###############################
 ## regrid and output         ##
 ###############################
-regidAndOutSL <- function(fileIn,fileOut,varname,unit) {
+regidAndOutSL <- function(fileIn,fileOut,varname,unit,DT) {
     r=brick(fileIn)
     r=layer.apply(r,FUN.memSafe,crop,y=extentDefault)
-    writeRasterStandard(r,fileOut,varname,unit,fname)
+    writeRasterStandard(r,fileOut,varname,unit,fname,dataType=DT)
 }
 
-mapply(regidAndOutSL,fileIn,fileOut,varname,unit)
+mapply(regidAndOutSL,fileIn,fileOut,varname,unit,dataType)
