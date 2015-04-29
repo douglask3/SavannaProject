@@ -2,8 +2,8 @@ regridData <- function(fileTS3.1,fileDetr,FUN,...) {
     ###############################
     ## regrid new data           ##
     ###############################
-    In  = brick(fileTS3.1)[[1:12]]
-    old = brick(fileDetr)[[1:12]]
+    In  = brick(fileTS3.1)
+    old = brick(fileDetr)
     if (testRun) {
         In  = In [[1:12]]
         old = old[[1:12]]
