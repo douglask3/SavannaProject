@@ -1,27 +1,33 @@
 ###############################
 ## Paths and Info            ##
 ###############################
-
 source("cfg.r")
 
 fileIn      <- c('landmask_0k.nc',
                 'soildata_0k.nc',
-                'lightn_climatology_otd_mlnha.nc')
+                'lightn_climatology_otd_mlnha.nc',
+                 'a_nd_fill.nc')
+                
 pathIn      <- '~/Documents/climInputs/detrended/'
                 
 fileOut     <- c('Ausmask_0k.nc',
                 'soildata_0k.nc',
-                'lightn_climatology_otd_mlnha.nc')
+                'lightn_climatology_otd_mlnha.nc',
+                'a_nd_fillSpinUp.nc')
+                           
 varname     <- c('mask',
                 'soiltype',
-                'lightn')
+                'lightn',
+                'a_nd')
                 
 unit        <- c("-",
                  '-',
-                 'flash/m2')
+                 'flash/m2',
+                 '-')
                  
 dataType    <- c('LOG1S',
                  'INT1S',
+                 'FLT8S',
                  'FLT8S')
 
 fname       <- "regridLPXstndrdLengthInputs.r"

@@ -5,25 +5,21 @@ source("cfg.r")
 
 fileIn      <- c('pas_fill2.nc',
                  'cropland_18512006.nc',
-                 'popdens_fill2.nc',
-                 'a_nd_fill.nc')
+                 'popdens_fill2.nc')
                  
 pathIn      <- '~/Documents/climInputs/climData/historic/'
                 
 fileOut     <- list(trans=fileIn,
                     detr=c('pas_fillSpinUp.nc',
                            'cropland_1851.nc',
-                           'popdens_fillSpinUp.nc',
-                           'a_nd_fillSpinUp.nc'))
+                           'popdens_fillSpinUp.nc'))
 
 varname     <- c('pas',
                 'crop',
-                'popdens',
-                'a_nd')
+                'popdens')
                 
 unit        <- c("fraction",
                  'fraction',
-                 '-',
                  '-')
 
 fname       <- "regridLPXdiffLengthInputs.r"
