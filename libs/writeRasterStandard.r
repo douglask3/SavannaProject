@@ -1,6 +1,6 @@
 writeRasterStandard <- function(dat,filename,varname='variable',unit='',
                                 fname='N/A',wname=match.call.string(),index=NULL,
-                                dataType = 'FLT8S', ...) {
+                                dataType = 'FLT4S', ...) {
 	
 	if (!is.null(index)) dat=dat[[index]]
 	print(dataType)

@@ -27,8 +27,8 @@ unit        <- c("-",
                  
 dataType    <- c('LOG1S',
                  'INT1S',
-                 'FLT8S',
-                 'FLT8S')
+                 'FLT4S',
+                 'FLT4S')
 
 fname       <- "regridLPXstndrdLengthInputs.r"
 ###############################
