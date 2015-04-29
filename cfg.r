@@ -6,7 +6,7 @@ library("ncdf")
 
 extentDefault   = extent(c(113,154,-40,-10))
 
-testRun         = TRUE
+testRun         = FALSE
 
 detrendedLength = c(full=600,
                     test=12)
